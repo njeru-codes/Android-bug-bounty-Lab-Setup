@@ -11,12 +11,13 @@ chomd +x ./genymotion-3.8.0-linux_x64.bin
 sudo ./genymotion-3.8.0-linux_x64.bin  -y
 
 
-
-echo -e "\033[32m installing frida tools \033[0m"
 sudo apt update -y -qq
 sudo apt install pipx  -qq
-sudo pipx install frida-tools -qq
-frida-trace --version  # check if frida is installed
+sudo apt install xz-utils -qq
+
+echo -e "\033[32m installing frida tools \033[0m"
+pipx install frida-tools -qq
+frida --version
 
 
 echo -e "\033[32m installing adb \033[0m"
@@ -24,4 +25,4 @@ sudo apt install android-tools-adb android-tools-fastboot -y -qq
 
 echo -e "\033[32m installing burpsuite \033[0m"
 sudo apt install burpsuite -y  
-burpsuite
+

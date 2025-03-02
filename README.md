@@ -36,12 +36,28 @@ adb shell ps | grep frida
 ```
 
 launch burp to intercept requests & download certficates(in DER format)
+push the cert to device
 ```bash
     burpsuite
-    adb push ~/Downloads/ca-cert.der  /data/local/tmp/cert-dert.crt
+    adb push ~/Downloads/ca-cert.der  /data/local/tmp/cert-der.crt
 ```
 
-
+certifcate pinning bypass
 ```bash
-frida --codeshare pcipolloni/universal-android-ssl-pinning-bypass-with-frida -f YOUR_BINARY
+    # wget https://github.com/54523464-a3d4-481f-bb25-6432b89c6547
+    # the script is in this repo
+    adb push fridascript.js  /data/local/tmp
 ```
+
+run frida server
+```bash
+adb shell /data/local/tmp/frida-server-16.6.5-android-x86 &
+adb shell ps | grep frida
+frida-ps -U
+```
+
+from the command `frida-ps -U` locate the app target package name
+```bash
+    frida -U -f com.itstechrewards.watchandearntompesa  -l fridascript.js 
+```
+

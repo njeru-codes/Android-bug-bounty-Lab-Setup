@@ -1,63 +1,53 @@
-# Android Bug Bounty Lab Setup
+# Seeting Up Android bug bounty lab
+This guide provides step-by-step instructions to set up an Android lab for bug bounty hunting and security testing. It includes setting up an emulator, configuring proxies, installing necessary tools, and securing a testing environment.
 
-This repository provides a complete setup guide for an Android Bug Bounty testing lab environment. It is intended for security researchers and penetration testers who want to practice Android application security testing in a controlled environment.
 
+## getting started
 
-## usage
-clone the repo
+installing **adb**
 ```bash
-    git clone https://github.com/njeru-codes/Android-bug-bounty-Lab-Setup.git
-    cd Android-bug-bounty-Lab-Setup
+     sudo apt install adb
+```
+install apktool
+```bash
+    sudo apt install apktool
 ```
 
-run the installer script
+install jadx
+```
+    sudo apt install default-jdk
+    sudo apt install jadx
+```
+install frida tools
 ```bash
-    chmod +x ./script.sh
-    sudo ./script.sh
+    sudo apt install pipx
+    pipx install frida-tools
 ```
 
-start the emulator(genymotion)
-- click its icon launcher on menu
-
-check if emulator is running
+install objection
 ```bash
-    adb devices
+    pipx install objection
 ```
 
-frida server setup
-```bash
-wget https://github.com/frida/frida/releases/download/16.6.5/frida-server-16.6.5-android-x86.xz
-xz -d frida-server-16.6.5-android-x86.xz
-adb push frida-server-16.6.5-android-x86 /data/local/tmp/
-adb shell chmod 777 /data/local/tmp/frida-server-16.6.5-android-x86
-adb shell /data/local/tmp/frida-server-16.6.5-android-x86 &
-adb shell ps | grep frida
-
+install mobSF
+```
+    sudo apt install docker.io
+    sudo docker pull opensecurity/mobile-security-framework-mobsf
+    sudo docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest  # to run the container
 ```
 
-launch burp to intercept requests & download certficates(in DER format)
-push the cert to device
+setting up genymotion emulator
 ```bash
-    burpsuite
-    adb push ~/Downloads/ca-cert.der  /data/local/tmp/cert-der.crt
+wget https://dl.genymotion.com/releases/genymotion-3.8.0/genymotion-3.8.0-linux_x64.bin
+chmod +x ./genymotion-3.8.0-linux_x64.bin 
+sudo ./genymotion-3.8.0-linux_x64.bin  -y
 ```
 
-certifcate pinning bypass
+
+install burpsuite
 ```bash
-    # wget https://github.com/54523464-a3d4-481f-bb25-6432b89c6547
-    # the script is in this repo
-    adb push fridascript.js  /data/local/tmp
+    sudo apt install burpsuite -y
 ```
 
-run frida server
-```bash
-adb shell /data/local/tmp/frida-server-16.6.5-android-x86 &
-adb shell ps | grep frida
-frida-ps -U
-```
 
-from the command `frida-ps -U` locate the app target package name
-```bash
-    frida -U -f com.itstechrewards.watchandearntompesa  -l fridascript.js 
-```
-
+## configuring our environment

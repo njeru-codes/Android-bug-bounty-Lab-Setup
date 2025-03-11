@@ -21,7 +21,7 @@ install jadx
 install frida tools
 ```bash
     sudo apt install pipx
-    pipx install frida-tools
+    pipx install frida-tools frida
 ```
 
 install objection
@@ -65,6 +65,45 @@ The lab has been fully setup now<br/>
 `Remember`: to install gApps on genymotion emulator to use google playstore
 
 ## bypassing certificate(SSL) pinning
+check if youre a root user . The command should return `root`
+```bash
+    adb shell whoami
+```
+use objection to bypass SSL pinning.
+Start Objection with the target app:
+```bash
+    objection -g com.target.app explore
+    # replace com.target.app with your app
+```
+Disable SSL pinning:
+```bash
+    android sslpinning disable
+```
+
+2. using frida (Option 2) <br/>
+Install Frida on your Genymotion emulator:<br/>
+    - Download the Frida server:
+    ```bash
+        wget https://github.com/frida/frida/releases/download/16.1.0/frida-server-16.1.0-android-x86_64.xz
+
+    ```
+    - Extract and push it to the emulator:
+    ```bash
+        unxz frida-server-16.1.0-android-x86_64.xz
+        adb push frida-server-16.1.0-android-x86_64 /data/local/tmp/
+        adb shell chmod +x /data/local/tmp/frida-server-16.1.0-android-x86_64
+
+    ```
+    - run frida
+    ```
+        adb shell /data/local/tmp/frida-server-16.1.0-android-x86_64
+    ```
+    - Attach Frida to the target app and disable SSL pinning:
+    ```
+        frida -U -n com.target.app -s https://raw.githubusercontent.com/httptoolkit/frida-android-unpinning/main/frida-script.js
+        # replace com.target.app  with your app
+
+    ```
 
 
 ## other tools you can intall

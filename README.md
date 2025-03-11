@@ -51,3 +51,23 @@ install burpsuite
 
 
 ## configuring our environment
+1. open **genymotion** and install an emulator preferred `google pixel XL` . make sure to use android versions 11 and below since the images come pre-rooted
+2.  Open burp suite and go to `proxy` then `proxy settings` tab and click on “Add” under the Proxy Listeners section.<br/>
+you will add a listening interface
+
+3. Add `Android Device Proxy Configuration`.To do this ---> On your Android emulator, open the Wi-Fi settings and long-press the connected Wi-Fi name. Select the “Modify Network” option. Under the Proxy settings, choose “Manual” and enter the IP address of your Kali machine.
+4. Install Burp Certificate in android emulator: <br/>
+Open any browser on your Android device and browse to http://burp, Click on the CA Certificate to download it into the Downloads folder. <br/>
+Modify the Certificate Extension:<br/>
+Change the file extension from .der to .cer. Then, navigate to the mobile settings, search for “Install Certificate,” and proceed accordingly.
+
+The lab has been fully setup now<br/>
+`Remember`: to install gApps on genymotion emulator to use google playstore
+
+## bypassing certificate(SSL) pinning
+
+
+## other tools you can intall
+- Ghidra: A software reverse engineering (SRE) suite of tools developed by NSA’s Research Directorate in support of the Cybersecurity mission.
+- Drozer: drozer is the leading security testing framework for Android.
+- Dex2jar: Converts .dex files to .class files, zipped as a jar file.
